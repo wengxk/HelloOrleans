@@ -1,0 +1,68 @@
+﻿@page "/shippingcart"
+@inject ShoppingCartService _service
+
+
+<h3>Shopping Cart</h3>
+
+<input @bind="@newGoods" />
+<button @onclick="@Add">Add New Goods</button>
+<button @onclick="@Clear">Clear All Goods</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Goods</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (allGoods != null)
+        {
+            @foreach (var item in allGoods)
+            {
+                <tr>
+                    <td>@item</td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+
+@code {
+
+    private string newGoods;
+
+    private string[] allGoods;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await this.GetAllGoods();
+    }
+
+    private async Task GetAllGoods()
+    {
+        var t = await _service.All();
+        allGoods = t.ToArray();
+    }
+
+    private async Task Add()
+    {
+        if (!string.IsNullOrWhiteSpace(newGoods))
+        {
+            await _service.Add(newGoods);
+        }
+
+        await this.GetAllGoods();
+        this.newGoods = null;
+    }
+
+    private async Task Clear()
+    {
+        await this._service.Clear();
+        this.allGoods = null;
+    }
+
+
+}
