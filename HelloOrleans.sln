@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.Grains", "Hell
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.SiloHost", "HelloOrleans.SiloHost\HelloOrleans.SiloHost.csproj", "{812EE929-8FAE-4E05-811F-D5DAC59F84ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.BlazorClient", "HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{3D84C0FA-BF00-4076-A75F-572FF5858602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.BlazorClient", "HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{3D84C0FA-BF00-4076-A75F-572FF5858602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Models", "HelloOrleans.Models\HelloOrleans.Models.csproj", "{E24614EB-659A-4A39-8577-AB26132A0776}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E24614EB-659A-4A39-8577-AB26132A0776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E24614EB-659A-4A39-8577-AB26132A0776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E24614EB-659A-4A39-8577-AB26132A0776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E24614EB-659A-4A39-8577-AB26132A0776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

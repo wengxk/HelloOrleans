@@ -32,10 +32,6 @@
             Client = new ClientBuilder()
                 .ConfigureApplicationParts(manager => manager.AddApplicationPart(typeof(IShoppingCart).Assembly).WithReferences())
                 .UseLocalhostClustering()
-                 //.Configure<ClusterOptions>(_ =>
-                 //{
-                 //    _.ServiceId = "HelloOrleans";
-                 //})
                 .Build();
         }
 

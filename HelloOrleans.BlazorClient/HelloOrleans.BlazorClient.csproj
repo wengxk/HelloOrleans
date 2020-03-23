@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>HelloOrleans.BlazorClient</AssemblyName>
+    <RootNamespace>HelloOrleans.BlazorClient</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
