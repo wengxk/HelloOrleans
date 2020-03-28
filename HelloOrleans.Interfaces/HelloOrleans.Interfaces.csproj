@@ -13,6 +13,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\HelloOrleans.Models\HelloOrleans.Models.csproj" />
+    </ItemGroup>
 
 
 </Project>
