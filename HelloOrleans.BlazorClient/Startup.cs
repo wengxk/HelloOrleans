@@ -32,6 +32,8 @@ namespace HelloOrleans.BlazorClient
             services.AddSingleton<WeatherForecastService>();
             services.AddClusterService();
             services.AddSingleton<ShoppingCartService>();
+            services.AddSingleton<WarehouseService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

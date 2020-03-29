@@ -1,33 +1,43 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>HelloOrleans.SiloHost</RootNamespace>
-        <StartupObject>HelloOrleans.SiloHost.Program</StartupObject>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
-        <PackageReference Include="Microsoft.Orleans.Core" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator.Build" Version="3.1.3">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.Persistence.AdoNet" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.Runtime.Abstractions" Version="3.1.3" />
-        <PackageReference Include="Microsoft.Orleans.Server" Version="3.1.3" />
-        <PackageReference Include="MySql.Data" Version="8.0.19" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="OrleansDashboard" Version="3.0.8" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\HelloOrleans.Grains\HelloOrleans.Grains.csproj" />
-        <ProjectReference Include="..\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj" />
-    </ItemGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>HelloOrleans.SiloHost</RootNamespace>
+    <StartupObject>HelloOrleans.SiloHost.Program</StartupObject>
+    <UserSecretsId>bfe39104-a35c-4bc4-9c33-8c7d02ac966c</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Orleans.Core" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator.Build" Version="3.1.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.Persistence.AdoNet" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.Runtime.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Orleans.Server" Version="3.1.3" />
+    <PackageReference Include="MySql.Data" Version="8.0.19" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="npgsql" Version="4.1.3.1" />
+    <PackageReference Include="OrleansDashboard" Version="3.0.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HelloOrleans.Grains\HelloOrleans.Grains.csproj" />
+    <ProjectReference Include="..\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

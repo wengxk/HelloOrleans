@@ -3,25 +3,24 @@
     using System;
     using System.Net;
     using HelloOrleans.Grains;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Orleans;
     using Orleans.Configuration;
     using Orleans.Hosting;
+    using Npgsql;
 
-
-    /// <summary>
-    /// Defines the <see cref="Program" />.
-    /// </summary>
     public class Program
     {
-        #region Methods
-
-        /// <summary>
-        /// The Main.
-        /// </summary>
-        /// <param name="args">The args<see cref="string[]"/>.</param>
         public static void Main(string[] args)
         {
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddUserSecrets<Program>()
+                .Build();
+
+            var connectionString = configuration.GetConnectionString("aliyunpgsql");
+
             var builder = new SiloHostBuilder()
                .ConfigureApplicationParts(_ => _.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
                .UseLocalhostClustering()
@@ -31,11 +30,10 @@
                    _.SiloPort = 11111;
                    _.GatewayPort = 30000;
                })
-               //.AddMemoryGrainStorageAsDefault()
                .AddAdoNetGrainStorage("HelloOrleansStorage", _ =>
                {
-                   _.Invariant = "MySql.Data.MySqlClient";
-                   _.ConnectionString = "Server=localhost;Database=helloorleans;Uid=root;Pwd=111111";
+                   _.Invariant = "Npgsql";
+                   _.ConnectionString = connectionString;
                    _.UseJsonFormat = true;
                })
                .ConfigureLogging(_ => _.AddConsole())
@@ -52,6 +50,5 @@
             host.StopAsync().Wait();
         }
 
-        #endregion
     }
 }

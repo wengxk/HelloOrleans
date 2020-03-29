@@ -1,0 +1,47 @@
+﻿@page "/warehouse"
+@inject WarehouseService _service
+@using HelloOrleans.Models;
+
+<h3>Warehouse</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Goods</th>
+            <th>Inventory</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (allGoodsInventory != null)
+        {
+            @foreach (var item in allGoodsInventory)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Goods</td>
+                    <td>@item.Inventory</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+    private GoodsInventory[] allGoodsInventory;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await this.GetAllGoods();
+    }
+
+    private async Task GetAllGoods()
+    {
+        var t = await _service.All();
+        allGoodsInventory = t.ToArray();
+    }
+
+}

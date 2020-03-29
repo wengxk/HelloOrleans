@@ -7,7 +7,7 @@
     public interface IShoppingCart : IGrainWithIntegerKey
     {
         Task Add(string goods);
-        
+
         Task<IEnumerable<string>> All();
 
         Task Clear();
