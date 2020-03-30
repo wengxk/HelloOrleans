@@ -2,13 +2,12 @@
 {
     using System;
 
+
     [Serializable]
-    public class GoodsInventory
+    public class BasicGoods
     {
         public int Id { get; set; }
 
         public string GoodsName { get; set; }
-
-        public uint Inventory { get; set; }
     }
 }

@@ -46,5 +46,12 @@
             return Task.CompletedTask;
         }
 
+
+        public override Task OnDeactivateAsync()
+        {
+            _cart.WriteStateAsync();
+            return base.OnDeactivateAsync();
+        }
+
     }
 }

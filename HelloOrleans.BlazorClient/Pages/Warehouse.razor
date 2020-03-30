@@ -4,24 +4,29 @@
 
 <h3>Warehouse</h3>
 
+
+<input @bind="@_goodsId" placeholder="Id" />
+<input @bind="@_goodsName" placeholder="GoodsName" />
+<button @onclick="@Add">
+    Add New Basic Goods
+</button>
+
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Goods</th>
-            <th>Inventory</th>
+            <th>GoodsName</th>
         </tr>
     </thead>
     <tbody>
 
-        @if (allGoodsInventory != null)
+        @if (_allBasicGoods != null)
         {
-            @foreach (var item in allGoodsInventory)
+            @foreach (var item in _allBasicGoods)
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Goods</td>
-                    <td>@item.Inventory</td>
+                    <td>@item.GoodsName</td>
                 </tr>
             }
         }
@@ -31,7 +36,10 @@
 
 @code {
 
-    private GoodsInventory[] allGoodsInventory;
+    private int? _goodsId;
+    private string _goodsName;
+
+    private BasicGoods[] _allBasicGoods;
 
     protected override async Task OnInitializedAsync()
     {
@@ -41,7 +49,23 @@
     private async Task GetAllGoods()
     {
         var t = await _service.All();
-        allGoodsInventory = t.ToArray();
+        _allBasicGoods = t.ToArray();
     }
 
+    private async Task Add()
+    {
+        if (_goodsId == null || string.IsNullOrWhiteSpace(_goodsName))
+            return;
+        if (_allBasicGoods.Select(x => x.Id).ToList().Contains(_goodsId.GetValueOrDefault())
+            || _allBasicGoods.Select(x => x.GoodsName).ToList().Contains(_goodsName))
+            return;
+        await _service.Add(new BasicGoods()
+        {
+            Id = this._goodsId.GetValueOrDefault(),
+            GoodsName = this._goodsName
+        });
+        _goodsId = null;
+        _goodsName = null;
+        await this.GetAllGoods();
+    }
 }

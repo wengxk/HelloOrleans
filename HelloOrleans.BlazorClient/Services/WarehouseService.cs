@@ -15,9 +15,14 @@ namespace HelloOrleans.BlazorClient.Services
             this._clusterClient = clusterClient;
         }
 
-        public Task<IEnumerable<GoodsInventory>> All()
+        public Task<IEnumerable<BasicGoods>> All()
         {
             return _clusterClient.GetGrain<IWarehouse>(1).All();
+        }
+
+        public Task Add(BasicGoods basicGoods)
+        {
+            return _clusterClient.GetGrain<IWarehouse>(1).Add(basicGoods);
         }
     }
 }

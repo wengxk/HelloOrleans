@@ -8,7 +8,6 @@
     using Orleans;
     using Orleans.Configuration;
     using Orleans.Hosting;
-    using Npgsql;
 
     public class Program
     {

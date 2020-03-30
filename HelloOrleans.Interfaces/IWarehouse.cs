@@ -7,6 +7,8 @@ namespace HelloOrleans.Interfaces
 {
     public interface IWarehouse : IGrainWithIntegerKey
     {
-        Task<IEnumerable<GoodsInventory>> All();
+        Task<IEnumerable<BasicGoods>> All();
+
+        Task Add(BasicGoods basicGoods);
     }
 }
