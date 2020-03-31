@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HelloOrleans.Models;
-using Orleans;
-
-namespace HelloOrleans.Interfaces
+﻿namespace HelloOrleans.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Models;
+    using Orleans;
+
     public interface IWarehouse : IGrainWithIntegerKey
     {
         Task<IEnumerable<BasicGoods>> All();

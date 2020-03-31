@@ -33,6 +33,7 @@ namespace HelloOrleans.BlazorClient
             services.AddClusterService();
             services.AddSingleton<ShoppingCartService>();
             services.AddSingleton<WarehouseService>();
+            services.AddSingleton<InventoryTransactionService>();
 
         }
 

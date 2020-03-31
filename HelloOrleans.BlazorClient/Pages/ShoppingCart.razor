@@ -1,10 +1,10 @@
 ﻿@page "/shippingcart"
-@inject ShoppingCartService _service
+@inject ShoppingCartService Service
 
 
 <h3>Shopping Cart</h3>
 
-<input @bind="@newGoods" />
+<input @bind="@_newGoods" />
 <button @onclick="@Add">Add New Goods</button>
 <button @onclick="@Clear">Clear All Goods</button>
 
@@ -16,9 +16,9 @@
     </thead>
     <tbody>
 
-        @if (allGoods != null)
+        @if (_allGoods != null)
         {
-            @foreach (var item in allGoods)
+            @foreach (var item in _allGoods)
             {
                 <tr>
                     <td>@item</td>
@@ -32,9 +32,9 @@
 
 @code {
 
-    private string newGoods;
+    private string _newGoods;
 
-    private string[] allGoods;
+    private string[] _allGoods;
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,25 +43,25 @@
 
     private async Task GetAllGoods()
     {
-        var t = await _service.All();
-        allGoods = t.ToArray();
+        var t = await Service.All();
+        _allGoods = t.ToArray();
     }
 
     private async Task Add()
     {
-        if (!string.IsNullOrWhiteSpace(newGoods))
+        if (!string.IsNullOrWhiteSpace(_newGoods))
         {
-            await _service.Add(newGoods);
+            await Service.Add(_newGoods);
         }
 
         await this.GetAllGoods();
-        this.newGoods = null;
+        this._newGoods = null;
     }
 
     private async Task Clear()
     {
-        await this._service.Clear();
-        this.allGoods = null;
+        await this.Service.Clear();
+        this._allGoods = null;
     }
 
 

@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HelloOrleans.Interfaces;
-using HelloOrleans.Models;
-using Orleans;
-
-namespace HelloOrleans.BlazorClient.Services
+﻿namespace HelloOrleans.BlazorClient.Services
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Interfaces;
+    using Models;
+    using Orleans;
+
     public class WarehouseService
     {
         private readonly IClusterClient _clusterClient;
 
         public WarehouseService(IClusterClient clusterClient)
         {
-            this._clusterClient = clusterClient;
+            _clusterClient = clusterClient;
         }
 
         public Task<IEnumerable<BasicGoods>> All()

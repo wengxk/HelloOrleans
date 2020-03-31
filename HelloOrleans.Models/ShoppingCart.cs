@@ -9,6 +9,5 @@
         public long Id { get; set; }
 
         public IList<string> Content { get; set; }
-
     }
 }

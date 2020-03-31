@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HelloOrleans.Interfaces;
-using HelloOrleans.Models;
-using Orleans;
-using Orleans.Runtime;
-using System.Linq;
-
-namespace HelloOrleans.Grains
+﻿namespace HelloOrleans.Grains
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Interfaces;
+    using Models;
+    using Orleans;
+    using Orleans.Runtime;
+
     public class WarehouseGrain : Grain, IWarehouse
     {
         private readonly IPersistentState<List<BasicGoods>> _allBasicGoods;
 
-        public WarehouseGrain([PersistentState("allBasicGoods", "HelloOrleansStorage")] IPersistentState<List<BasicGoods>> allGoods)
+        public WarehouseGrain([PersistentState("allBasicGoods", "HelloOrleansStorage")]
+            IPersistentState<List<BasicGoods>> allGoods)
         {
             _allBasicGoods = allGoods;
         }
+
+        #region IWarehouse Members
 
         Task<IEnumerable<BasicGoods>> IWarehouse.All()
         {
@@ -28,6 +31,8 @@ namespace HelloOrleans.Grains
             _allBasicGoods.WriteStateAsync();
             return Task.CompletedTask;
         }
+
+        #endregion
 
         public override Task OnDeactivateAsync()
         {

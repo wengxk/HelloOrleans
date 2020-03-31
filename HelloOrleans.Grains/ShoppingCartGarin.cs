@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using HelloOrleans.Interfaces;
-    using HelloOrleans.Models;
+    using Interfaces;
+    using Models;
     using Orleans;
     using Orleans.Runtime;
 
@@ -12,10 +12,13 @@
     {
         private readonly IPersistentState<ShoppingCart> _cart;
 
-        public ShoppingCartGarin([PersistentState("cart", "HelloOrleansStorage")] IPersistentState<ShoppingCart> cart)
+        public ShoppingCartGarin([PersistentState("cart", "HelloOrleansStorage")]
+            IPersistentState<ShoppingCart> cart)
         {
             _cart = cart;
         }
+
+        #region IShoppingCart Members
 
         public Task Add(string goods)
         {
@@ -38,6 +41,8 @@
             return Task.CompletedTask;
         }
 
+        #endregion
+
         public override Task OnActivateAsync()
         {
             _cart.State.Id = this.GetPrimaryKeyLong();
@@ -52,6 +57,5 @@
             _cart.WriteStateAsync();
             return base.OnDeactivateAsync();
         }
-
     }
 }

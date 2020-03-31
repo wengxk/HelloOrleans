@@ -1,0 +1,86 @@
+﻿@page "/invtrans"
+@inject InventoryTransactionService Service;
+@using HelloOrleans.Models;
+
+<h3>Warehouse</h3>
+
+
+<input @bind="@_goodsId" placeholder="Id" />
+<input @bind="@_transAmount" placeholder="Amount" />
+<button @onclick="@StockIn">
+    StockIn
+</button>
+<button @onclick="@StockOut">
+    StockOut
+</button>
+<button @onclick="@GetAllTransHist">
+    Get All Transaction History
+</button>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @if (_allTransHist != null)
+    {
+        @foreach (var item in _allTransHist)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.TransactionType</td>
+                <td>@item.Amount</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+
+@code {
+
+    private int? _goodsId;
+    private int? _transAmount;
+
+    private GoodsInventoryTransaction[] _allTransHist;
+
+    private async Task GetAllTransHist()
+    {
+        if (_goodsId == null)
+            return;
+        var t = await Service.All(_goodsId.GetValueOrDefault());
+        _allTransHist = t.ToArray();
+    }
+
+    private async Task StockIn()
+    {
+        await Trans("in");
+    }
+    
+    private async Task StockOut()
+    {
+        await Trans("out");
+    }
+
+    private async Task Trans(string transType)
+    {
+        if (_goodsId == null || _transAmount == null)
+            return;
+        if(transType != "in" && transType != "out")
+            return;
+        await Service.Trans(new GoodsInventoryTransaction()
+        {
+            Id = _goodsId.GetValueOrDefault(),
+            TransactionType = transType,
+            Amount = (uint) _transAmount.GetValueOrDefault()
+        });
+        _goodsId = null;
+        _transAmount = null;
+    }
+}

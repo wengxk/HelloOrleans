@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HelloOrleans.Interfaces;
-using Microsoft.Extensions.Logging;
-using Orleans;
-
-namespace HelloOrleans.BlazorClient.Services
+﻿namespace HelloOrleans.BlazorClient.Services
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Interfaces;
+    using Microsoft.Extensions.Logging;
+    using Orleans;
+
     public class ShoppingCartService
     {
+        private readonly IClusterClient _clusterClient;
 
         private readonly ILogger<ShoppingCartService> _logger;
-        private readonly IClusterClient _clusterClient;
 
         public ShoppingCartService(ILogger<ShoppingCartService> logger, IClusterClient clusterClient)
         {

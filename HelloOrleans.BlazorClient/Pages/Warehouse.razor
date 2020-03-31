@@ -1,5 +1,5 @@
 ﻿@page "/warehouse"
-@inject WarehouseService _service
+@inject WarehouseService Service
 @using HelloOrleans.Models;
 
 <h3>Warehouse</h3>
@@ -48,7 +48,7 @@
 
     private async Task GetAllGoods()
     {
-        var t = await _service.All();
+        var t = await Service.All();
         _allBasicGoods = t.ToArray();
     }
 
@@ -59,7 +59,7 @@
         if (_allBasicGoods.Select(x => x.Id).ToList().Contains(_goodsId.GetValueOrDefault())
             || _allBasicGoods.Select(x => x.GoodsName).ToList().Contains(_goodsName))
             return;
-        await _service.Add(new BasicGoods()
+        await Service.Add(new BasicGoods()
         {
             Id = this._goodsId.GetValueOrDefault(),
             GoodsName = this._goodsName
