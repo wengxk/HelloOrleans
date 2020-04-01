@@ -20,24 +20,22 @@
 
         #region IWarehouse Members
 
-        Task<IEnumerable<BasicGoods>> IWarehouse.All()
+        public async Task<IEnumerable<BasicGoods>> All()
         {
-            return Task.FromResult(_allBasicGoods.State.AsEnumerable());
+            return await Task.FromResult(_allBasicGoods.State.AsEnumerable());
         }
 
-        public Task Add(BasicGoods basicGoods)
+        public async Task Add(BasicGoods basicGoods)
         {
             _allBasicGoods.State.Add(basicGoods);
-            _allBasicGoods.WriteStateAsync();
-            return Task.CompletedTask;
+            await _allBasicGoods.WriteStateAsync();
         }
 
         #endregion
 
-        public override Task OnDeactivateAsync()
+        public override async Task OnDeactivateAsync()
         {
-            _allBasicGoods.WriteStateAsync();
-            return base.OnDeactivateAsync();
+            await _allBasicGoods.WriteStateAsync();
         }
     }
 }

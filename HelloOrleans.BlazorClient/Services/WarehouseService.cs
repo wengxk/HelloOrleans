@@ -15,14 +15,14 @@
             _clusterClient = clusterClient;
         }
 
-        public Task<IEnumerable<BasicGoods>> All()
+        public async Task<IEnumerable<BasicGoods>> All()
         {
-            return _clusterClient.GetGrain<IWarehouse>(1).All();
+            return await _clusterClient.GetGrain<IWarehouse>(1).All();
         }
 
-        public Task Add(BasicGoods basicGoods)
+        public async Task Add(BasicGoods basicGoods)
         {
-            return _clusterClient.GetGrain<IWarehouse>(1).Add(basicGoods);
+            await _clusterClient.GetGrain<IWarehouse>(1).Add(basicGoods);
         }
     }
 }

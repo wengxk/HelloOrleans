@@ -17,35 +17,21 @@
     {
         #region IGoodsInventoryTransaction Members
 
-        // public Task StockIn(uint amount)
-        // {
-        //     RaiseEvent(new StockInEvent(amount));
-        //     return ConfirmEvents();
-        // }
-        //
-        // public Task StockOut(uint amount)
-        // {
-        //     RaiseEvent(new StockOutEvent(amount));
-        //     return ConfirmEvents();
-        // }
-
-
-        public Task Trans(GoodsInventoryTransaction trans)
+        public async Task Trans(GoodsInventoryTransaction trans)
         {
             RaiseEvent(new GoodsInventoryTransactionEvent
             {
                 TransactionType = trans.TransactionType,
                 Amount = trans.Amount
             });
-            return ConfirmEvents();
+            await ConfirmEvents();
         }
 
-        public Task<IEnumerable<GoodsInventoryTransaction>> GetAllTransHist()
+        public async Task<IEnumerable<GoodsInventoryTransaction>> GetAllTransHist()
         {
-            var e = RetrieveConfirmedEvents(0, Version);
-            e.Wait();
+            var e = await RetrieveConfirmedEvents(0, Version);
 
-            var result = e.Result.Select(x =>
+            var result = e.Select(x =>
                 new GoodsInventoryTransaction
                 {
                     Id = (int) this.GetPrimaryKeyLong(),
@@ -53,7 +39,7 @@
                     Amount = x.Amount
                 }).ToList(); // must call ToList()
 
-            return Task.FromResult(result.AsEnumerable());
+            return await Task.FromResult(result.AsEnumerable());
         }
 
         #endregion
@@ -67,43 +53,11 @@
         public uint Amount { get; set; }
     }
 
-    // public class StockInEvent : GoodsInventoryEvent
-    // {
-    //     public StockInEvent(uint amount)
-    //     {
-    //         Amount = amount;
-    //     }
-    //
-    //     public uint Amount { get; }
-    // }
-    //
-    //
-    // public class StockOutEvent : GoodsInventoryEvent
-    // {
-    //     public StockOutEvent(uint amount)
-    //     {
-    //         Amount = amount;
-    //     }
-    //
-    //     public uint Amount { get; }
-    // }
 
     [Serializable]
     public class GoodsInventoryState
     {
         public uint Inventory { get; set; }
-
-        // public GoodsInventoryState Apply(StockInEvent @event)
-        // {
-        //     this.Inventory += @event.Amount;
-        //     return this;
-        // }
-        //
-        // public GoodsInventoryState Apply(StockOutEvent @event)
-        // {
-        //     this.Inventory -= @event.Amount;
-        //     return this;
-        // }
 
         public GoodsInventoryState Apply(GoodsInventoryTransactionEvent @event)
         {

@@ -19,17 +19,17 @@
             _logger = logger;
         }
 
-        public Task Trans(GoodsInventoryTransaction goodsInventoryTransaction)
+        public async Task Trans(GoodsInventoryTransaction goodsInventoryTransaction)
         {
             if (goodsInventoryTransaction == null)
-                return Task.CompletedTask;
-            return _client.GetGrain<IGoodsInventoryTransaction>(goodsInventoryTransaction.Id)
+                return;
+            await _client.GetGrain<IGoodsInventoryTransaction>(goodsInventoryTransaction.Id)
                 .Trans(goodsInventoryTransaction);
         }
 
-        public Task<IEnumerable<GoodsInventoryTransaction>> All(int id)
+        public async Task<IEnumerable<GoodsInventoryTransaction>> All(int id)
         {
-            return _client.GetGrain<IGoodsInventoryTransaction>(id).GetAllTransHist();
+            return await _client.GetGrain<IGoodsInventoryTransaction>(id).GetAllTransHist();
         }
     }
 }

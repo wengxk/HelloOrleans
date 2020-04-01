@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using Interfaces;
     using Models;
@@ -20,25 +21,23 @@
 
         #region IShoppingCart Members
 
-        public Task Add(string goods)
+        public async Task Add(string goods)
         {
             _cart.State.Content.Add(goods);
-            _cart.WriteStateAsync();
-            return Task.CompletedTask;
+            await _cart.WriteStateAsync();
         }
 
-        public Task<IEnumerable<string>> All()
+        public async Task<IEnumerable<string>> All()
         {
-            return Task.FromResult(_cart.State.Content.AsEnumerable());
+            return await Task.FromResult(_cart.State.Content.AsEnumerable());
         }
 
-        public Task Clear()
+        public async Task Clear()
         {
             if (_cart.State.Content.Count == 0)
-                return Task.CompletedTask;
+                return;
             _cart.State.Content.Clear();
-            _cart.WriteStateAsync();
-            return Task.CompletedTask;
+            await _cart.WriteStateAsync();
         }
 
         #endregion
@@ -52,10 +51,9 @@
         }
 
 
-        public override Task OnDeactivateAsync()
+        public override async Task OnDeactivateAsync()
         {
-            _cart.WriteStateAsync();
-            return base.OnDeactivateAsync();
+            await _cart.WriteStateAsync();
         }
     }
 }

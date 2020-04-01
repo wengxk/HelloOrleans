@@ -18,20 +18,20 @@
             _clusterClient = clusterClient;
         }
 
-        public Task Add(string goods)
+        public async Task Add(string goods)
         {
-            return _clusterClient.GetGrain<IShoppingCart>(1).Add(goods);
+            await _clusterClient.GetGrain<IShoppingCart>(1).Add(goods);
         }
 
 
-        public Task<IEnumerable<string>> All()
+        public async Task<IEnumerable<string>> All()
         {
-            return _clusterClient.GetGrain<IShoppingCart>(1).All();
+           return await _clusterClient.GetGrain<IShoppingCart>(1).All();
         }
 
-        public Task Clear()
+        public async Task Clear()
         {
-            return _clusterClient.GetGrain<IShoppingCart>(1).Clear();
+            await _clusterClient.GetGrain<IShoppingCart>(1).Clear();
         }
     }
 }
