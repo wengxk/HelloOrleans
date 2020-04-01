@@ -2,22 +2,33 @@
 @inject InventoryTransactionService Service;
 @using HelloOrleans.Models;
 
-<h3>Warehouse</h3>
+<h3>Inventory Transaction</h3>
 
 
-<input @bind="@_goodsId" placeholder="Id" />
-<input @bind="@_transAmount" placeholder="Amount" />
+<input @bind="@_goodsId" placeholder="Id"/>
+<input @bind="@_transAmount" placeholder="Amount"/>
 <button @onclick="@StockIn">
     StockIn
 </button>
 <button @onclick="@StockOut">
     StockOut
 </button>
+<button @onclick="@GetCurrentInventory">
+    Get Current Inventory
+</button>
 <button @onclick="@GetAllTransHist">
     Get All Transaction History
 </button>
+<br/>
+<br/>
 
+<p>
+    Current Inventory is @_currentInventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
 
+<p>
+    Transaction History &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
 <table class="table">
     <thead>
     <tr>
@@ -47,6 +58,7 @@
 
     private int? _goodsId;
     private int? _transAmount;
+    private uint? _currentInventory;
 
     private GoodsInventoryTransaction[] _allTransHist;
 
@@ -62,7 +74,7 @@
     {
         await Trans("in");
     }
-    
+
     private async Task StockOut()
     {
         await Trans("out");
@@ -72,7 +84,7 @@
     {
         if (_goodsId == null || _transAmount == null)
             return;
-        if(transType != "in" && transType != "out")
+        if (transType != "in" && transType != "out")
             return;
         await Service.Trans(new GoodsInventoryTransaction()
         {
@@ -83,4 +95,12 @@
         _goodsId = null;
         _transAmount = null;
     }
+
+    private async Task GetCurrentInventory()
+    {
+        if (_goodsId == null)
+            return;
+        _currentInventory = await Service.GetCurrentInventory(_goodsId.GetValueOrDefault());
+    }
+
 }

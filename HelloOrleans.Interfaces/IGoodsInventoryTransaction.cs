@@ -7,12 +7,10 @@
 
     public interface IGoodsInventoryTransaction : IGrainWithIntegerKey
     {
-        // Task StockIn(uint amount);
-        //
-        // Task StockOut(uint amount);
-
         Task Trans(GoodsInventoryTransaction transaction);
 
         Task<IEnumerable<GoodsInventoryTransaction>> GetAllTransHist();
+
+        Task<uint> GetCurrentInventory();
     }
 }

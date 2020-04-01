@@ -31,5 +31,10 @@
         {
             return await _client.GetGrain<IGoodsInventoryTransaction>(id).GetAllTransHist();
         }
+
+        public async Task<uint> GetCurrentInventory(int id)
+        {
+            return await _client.GetGrain<IGoodsInventoryTransaction>(id).GetCurrentInventory();
+        }
     }
 }

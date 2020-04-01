@@ -21,28 +21,30 @@
             var connectionString = configuration.GetConnectionString("aliyunpgsql");
 
             var builder = new SiloHostBuilder()
-                .ConfigureApplicationParts(_ =>
-                    _.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
+                .ConfigureApplicationParts(builder =>
+                    builder.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
                 .UseLocalhostClustering()
-                .Configure<EndpointOptions>(_ =>
+                .Configure<EndpointOptions>(options =>
                 {
-                    _.AdvertisedIPAddress = IPAddress.Loopback;
-                    _.SiloPort = 11111;
-                    _.GatewayPort = 30000;
+                    options.AdvertisedIPAddress = IPAddress.Loopback;
+                    options.SiloPort = 11111;
+                    options.GatewayPort = 30000;
                 })
-                .AddAdoNetGrainStorage("HelloOrleansStorage", _ =>
+                .AddAdoNetGrainStorage("HelloOrleansStorage", options =>
                 {
-                    _.Invariant = "Npgsql";
-                    _.ConnectionString = connectionString;
-                    _.UseJsonFormat = true;
+                    options.Invariant = "Npgsql";
+                    options.ConnectionString = connectionString;
+                    options.UseJsonFormat = true;
                 })
-                .AddLogStorageBasedLogConsistencyProvider("LogStorage")
+                .AddLogStorageBasedLogConsistencyProvider()
                 .AddStateStorageBasedLogConsistencyProvider("StateLogStorage")
-                .ConfigureLogging(_ => _.AddConsole())
-                .UseDashboard(_ =>
+                .ConfigureLogging(builder =>
+                    builder
+                        .AddConsole())
+                .UseDashboard(options =>
                 {
-                    _.Port = 8000;
-                    _.HideTrace = true;
+                    options.Port = 8000;
+                    options.HideTrace = true;
                 });
 
             using var host = builder.Build();

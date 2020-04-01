@@ -42,6 +42,11 @@
             return await Task.FromResult(result.AsEnumerable());
         }
 
+        public Task<uint> GetCurrentInventory()
+        {
+            return Task.FromResult(State.Inventory);
+        }
+
         #endregion
     }
 
