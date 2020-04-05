@@ -1,4 +1,4 @@
-﻿namespace HelloOrleans.Models
+﻿namespace HelloOrleans.DomainModels
 {
     using System;
     using System.Collections.Generic;

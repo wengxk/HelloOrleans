@@ -14,7 +14,10 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\HelloOrleans.Models\HelloOrleans.Models.csproj" />
+      <Compile Remove="IAccount.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj" />
     </ItemGroup>
 
 

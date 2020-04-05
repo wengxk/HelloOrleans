@@ -15,7 +15,10 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj" />
         <ProjectReference Include="..\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj" />
-        <ProjectReference Include="..\HelloOrleans.Models\HelloOrleans.Models.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="AccountGrain.cs" />
     </ItemGroup>
 </Project>

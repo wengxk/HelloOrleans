@@ -1,35 +1,35 @@
 ﻿@page "/warehouse"
+@using HelloOrleans.DomainModels
 @inject WarehouseService Service
-@using HelloOrleans.Models;
 
 <h3>Warehouse</h3>
 
 
-<input @bind="@_goodsId" placeholder="Id" />
-<input @bind="@_goodsName" placeholder="Goods Name" />
+<input @bind="@_goodsId" placeholder="Id"/>
+<input @bind="@_goodsName" placeholder="Goods Name"/>
 <button @onclick="@Add">
     Add New Basic Goods
 </button>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Goods Name</th>
-        </tr>
+    <tr>
+        <th>Id</th>
+        <th>Goods Name</th>
+    </tr>
     </thead>
     <tbody>
 
-        @if (_allBasicGoods != null)
+    @if (_allBasicGoods != null)
+    {
+        @foreach (var item in _allBasicGoods)
         {
-            @foreach (var item in _allBasicGoods)
-            {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.GoodsName</td>
-                </tr>
-            }
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.GoodsName</td>
+            </tr>
         }
+    }
     </tbody>
 </table>
 
@@ -43,7 +43,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await this.GetAllGoods();
+        await GetAllGoods();
     }
 
     private async Task GetAllGoods()
@@ -59,13 +59,14 @@
         if (_allBasicGoods.Select(x => x.Id).ToList().Contains(_goodsId.GetValueOrDefault())
             || _allBasicGoods.Select(x => x.GoodsName).ToList().Contains(_goodsName))
             return;
-        await Service.Add(new BasicGoods()
+        await Service.Add(new BasicGoods
         {
-            Id = this._goodsId.GetValueOrDefault(),
-            GoodsName = this._goodsName
+            Id = _goodsId.GetValueOrDefault(),
+            GoodsName = _goodsName
         });
         _goodsId = null;
         _goodsName = null;
-        await this.GetAllGoods();
+        await GetAllGoods();
     }
+
 }

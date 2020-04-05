@@ -4,27 +4,27 @@
 
 <h3>Shopping Cart</h3>
 
-<input @bind="@_newGoods" />
+<input @bind="@_newGoods"/>
 <button @onclick="@Add">Add to My Cart</button>
 <button @onclick="@Clear">Clear All Goods</button>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Goods</th>
-        </tr>
+    <tr>
+        <th>Goods</th>
+    </tr>
     </thead>
     <tbody>
 
-        @if (_allGoods != null)
+    @if (_allGoods != null)
+    {
+        @foreach (var item in _allGoods)
         {
-            @foreach (var item in _allGoods)
-            {
-                <tr>
-                    <td>@item</td>
-                </tr>
-            }
+            <tr>
+                <td>@item</td>
+            </tr>
         }
+    }
     </tbody>
 
 </table>
@@ -38,7 +38,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await this.GetAllGoods();
+        await GetAllGoods();
     }
 
     private async Task GetAllGoods()
@@ -54,14 +54,14 @@
             await Service.Add(_newGoods);
         }
 
-        await this.GetAllGoods();
-        this._newGoods = null;
+        await GetAllGoods();
+        _newGoods = null;
     }
 
     private async Task Clear()
     {
-        await this.Service.Clear();
-        this._allGoods = null;
+        await Service.Clear();
+        _allGoods = null;
     }
 
 

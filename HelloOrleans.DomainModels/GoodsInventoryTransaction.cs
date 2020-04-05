@@ -1,11 +1,11 @@
-namespace HelloOrleans.Models
+namespace HelloOrleans.DomainModels
 {
     using System;
 
     [Serializable]
     public class GoodsInventoryTransaction
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string TransactionType { get; set; }
 

@@ -26,7 +26,7 @@
 
         public async Task<IEnumerable<string>> All()
         {
-           return await _clusterClient.GetGrain<IShoppingCart>(1).All();
+            return await _clusterClient.GetGrain<IShoppingCart>(1).All();
         }
 
         public async Task Clear()

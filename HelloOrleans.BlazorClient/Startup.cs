@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using HelloOrleans.BlazorClient.Data;
-using HelloOrleans.BlazorClient.Services;
-
 namespace HelloOrleans.BlazorClient
 {
+    using Data;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Services;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -34,7 +28,6 @@ namespace HelloOrleans.BlazorClient
             services.AddSingleton<ShoppingCartService>();
             services.AddSingleton<WarehouseService>();
             services.AddSingleton<InventoryTransactionService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

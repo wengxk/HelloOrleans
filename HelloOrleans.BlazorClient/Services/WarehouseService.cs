@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using DomainModels;
     using Interfaces;
-    using Models;
     using Orleans;
 
     public class WarehouseService

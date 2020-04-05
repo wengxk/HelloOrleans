@@ -1,6 +1,6 @@
 ﻿@page "/invtrans"
+@using HelloOrleans.DomainModels
 @inject InventoryTransactionService Service;
-@using HelloOrleans.Models;
 
 <h3>Inventory Transaction</h3>
 
@@ -86,7 +86,7 @@
             return;
         if (transType != "in" && transType != "out")
             return;
-        await Service.Trans(new GoodsInventoryTransaction()
+        await Service.Trans(new GoodsInventoryTransaction
         {
             Id = _goodsId.GetValueOrDefault(),
             TransactionType = transType,

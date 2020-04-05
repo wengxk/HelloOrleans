@@ -1,11 +1,10 @@
 ﻿namespace HelloOrleans.BlazorClient.Services
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using DomainModels;
     using Interfaces;
     using Microsoft.Extensions.Logging;
-    using Models;
     using Orleans;
 
     public class InventoryTransactionService
