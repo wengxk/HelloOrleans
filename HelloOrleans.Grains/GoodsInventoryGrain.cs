@@ -12,29 +12,30 @@
 
     [StorageProvider(ProviderName = "HelloOrleansStorage")]
     [LogConsistencyProvider(ProviderName = "LogStorage")]
-    public class GoodsInventoryTransactionGrain : JournaledGrain<GoodsInventory, GoodsInventoryTransactionEvent>,
-        IGoodsInventoryTransaction
+    public class GoodsInventoryGrain : JournaledGrain<GoodsInventory, GoodsInventoryTransactionEvent>,
+        IGoodsInventory
     {
         #region IGoodsInventoryTransaction Members
 
-        public async Task Trans(GoodsInventoryTransaction trans)
+        public async Task Trans(GoodsInventoryTransactionEvent trans)
         {
             RaiseEvent(new GoodsInventoryTransactionEvent
             {
+                GoodsId = trans.GoodsId,
                 TransactionType = trans.TransactionType,
                 Amount = trans.Amount
             });
             await ConfirmEvents();
         }
 
-        public async Task<IEnumerable<GoodsInventoryTransaction>> GetAllTransHist()
+        public async Task<IEnumerable<GoodsInventoryTransactionEvent>> GetAllTransHist()
         {
             var e = await RetrieveConfirmedEvents(0, Version);
 
             var result = e.Select(x =>
-                new GoodsInventoryTransaction
+                new GoodsInventoryTransactionEvent
                 {
-                    Id = this.GetPrimaryKeyLong(),
+                    GoodsId = this.GetPrimaryKeyLong(),
                     TransactionType = x.TransactionType,
                     Amount = x.Amount
                 }).ToList(); // must call ToList()
@@ -48,5 +49,11 @@
         }
 
         #endregion
+        
+        public override Task OnActivateAsync()
+        {
+            this.State.GoodsId = this.GetPrimaryKeyLong();
+            return base.OnActivateAsync();
+        }
     }
 }

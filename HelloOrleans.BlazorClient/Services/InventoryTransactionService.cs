@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using DomainModels;
+    using DomainModels.Events;
     using Interfaces;
     using Microsoft.Extensions.Logging;
     using Orleans;
@@ -18,22 +18,22 @@
             _logger = logger;
         }
 
-        public async Task Trans(GoodsInventoryTransaction goodsInventoryTransaction)
+        public async Task Trans(GoodsInventoryTransactionEvent goodsInventoryTransaction)
         {
             if (goodsInventoryTransaction == null)
                 return;
-            await _client.GetGrain<IGoodsInventoryTransaction>(goodsInventoryTransaction.Id)
+            await _client.GetGrain<IGoodsInventory>(goodsInventoryTransaction.GoodsId)
                 .Trans(goodsInventoryTransaction);
         }
 
-        public async Task<IEnumerable<GoodsInventoryTransaction>> All(int id)
+        public async Task<IEnumerable<GoodsInventoryTransactionEvent>> All(long id)
         {
-            return await _client.GetGrain<IGoodsInventoryTransaction>(id).GetAllTransHist();
+            return await _client.GetGrain<IGoodsInventory>(id).GetAllTransHist();
         }
 
-        public async Task<uint> GetCurrentInventory(int id)
+        public async Task<uint> GetCurrentInventory(long id)
         {
-            return await _client.GetGrain<IGoodsInventoryTransaction>(id).GetCurrentInventory();
+            return await _client.GetGrain<IGoodsInventory>(id).GetCurrentInventory();
         }
     }
 }

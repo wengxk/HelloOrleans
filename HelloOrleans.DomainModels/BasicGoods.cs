@@ -5,7 +5,7 @@
     [Serializable]
     public class BasicGoods
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string GoodsName { get; set; }
     }
