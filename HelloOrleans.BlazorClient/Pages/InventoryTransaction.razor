@@ -1,5 +1,5 @@
 ﻿@page "/invtrans"
-@using HelloOrleans.DomainModels
+@using HelloOrleans.DomainModels.Events
 @inject InventoryTransactionService Service;
 
 <h3>Inventory Transaction</h3>
@@ -32,7 +32,7 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Id</th>
+        <th>Goods Id</th>
         <th>Transaction Type</th>
         <th>Amount</th>
     </tr>
@@ -44,7 +44,7 @@
         @foreach (var item in _allTransHist)
         {
             <tr>
-                <td>@item.Id</td>
+                <td>@item.GoodsId</td>
                 <td>@item.TransactionType</td>
                 <td>@item.Amount</td>
             </tr>
@@ -56,11 +56,11 @@
 
 @code {
 
-    private int? _goodsId;
-    private int? _transAmount;
+    private long? _goodsId;
+    private uint? _transAmount;
     private uint? _currentInventory;
 
-    private GoodsInventoryTransaction[] _allTransHist;
+    private GoodsInventoryTransactionEvent[] _allTransHist;
 
     private async Task GetAllTransHist()
     {
@@ -73,11 +73,17 @@
     private async Task StockIn()
     {
         await Trans("in");
+        await Task.Delay(TimeSpan.FromMilliseconds(200));
+        await GetAllTransHist();
+        await GetCurrentInventory();
     }
 
     private async Task StockOut()
     {
         await Trans("out");
+        await Task.Delay(TimeSpan.FromMilliseconds(200));
+        await GetAllTransHist();
+        await GetCurrentInventory();
     }
 
     private async Task Trans(string transType)
@@ -86,14 +92,12 @@
             return;
         if (transType != "in" && transType != "out")
             return;
-        await Service.Trans(new GoodsInventoryTransaction
+        await Service.Trans(new GoodsInventoryTransactionEvent
         {
-            Id = _goodsId.GetValueOrDefault(),
+            GoodsId = _goodsId.GetValueOrDefault(),
             TransactionType = transType,
             Amount = (uint) _transAmount.GetValueOrDefault()
         });
-        _goodsId = null;
-        _transAmount = null;
     }
 
     private async Task GetCurrentInventory()
