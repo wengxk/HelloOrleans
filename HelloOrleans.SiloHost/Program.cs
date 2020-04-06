@@ -4,6 +4,7 @@
     using System.Net;
     using Grains;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Orleans;
     using Orleans.Configuration;
@@ -17,9 +18,9 @@
                 .AddJsonFile("appsettings.json")
                 .AddUserSecrets<Program>()
                 .Build();
-
             var connectionString = configuration.GetConnectionString("aliyunpgsql");
-
+            HelloOrleans.Grains.Common.ConnectionString = connectionString;
+            
             var builder = new SiloHostBuilder()
                 .ConfigureApplicationParts(builder =>
                     builder.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
@@ -36,8 +37,8 @@
                     options.ConnectionString = connectionString;
                     options.UseJsonFormat = true;
                 })
-                .AddLogStorageBasedLogConsistencyProvider()
-                .AddStateStorageBasedLogConsistencyProvider("StateLogStorage")
+                .AddLogStorageBasedLogConsistencyProvider("LogStorage")
+                .AddCustomStorageBasedLogConsistencyProviderAsDefault("CustomLogStorage")
                 .ConfigureLogging(builder =>
                     builder
                         .AddConsole())

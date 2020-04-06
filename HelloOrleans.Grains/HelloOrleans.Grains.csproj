@@ -13,12 +13,11 @@
         <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="3.1.3" PrivateAssets="all">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Npgsql" Version="4.1.3.1" />
+        <PackageReference Include="Npgsql.NodaTime" Version="4.1.3" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj" />
         <ProjectReference Include="..\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="AccountGrain.cs" />
     </ItemGroup>
 </Project>

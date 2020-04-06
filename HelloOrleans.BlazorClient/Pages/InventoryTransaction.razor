@@ -13,11 +13,8 @@
 <button @onclick="@StockOut">
     StockOut
 </button>
-<button @onclick="@GetCurrentInventory">
-    Get Current Inventory
-</button>
-<button @onclick="@GetAllTransHist">
-    Get All Transaction History
+<button @onclick="@ShowDetails">
+    Show Details
 </button>
 <br/>
 <br/>
@@ -105,6 +102,12 @@
         if (_goodsId == null)
             return;
         _currentInventory = await Service.GetCurrentInventory(_goodsId.GetValueOrDefault());
+    }
+
+    private async Task ShowDetails()
+    {
+        await GetCurrentInventory();
+        await GetAllTransHist();
     }
 
 }

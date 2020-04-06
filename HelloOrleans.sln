@@ -19,6 +19,7 @@ ProjectSection(SolutionItems) = preProject
 	SulotionItems\02_PostgreSQL-Clustering.sql = SulotionItems\02_PostgreSQL-Clustering.sql
 	SulotionItems\03_PostgreSQL-Persistence.sql = SulotionItems\03_PostgreSQL-Persistence.sql
 	SulotionItems\04_PostgreSQL-Reminders.sql = SulotionItems\04_PostgreSQL-Reminders.sql
+	SulotionItems\05_account_ddl.sql = SulotionItems\05_account_ddl.sql
 EndProjectSection
 EndProject
 Global

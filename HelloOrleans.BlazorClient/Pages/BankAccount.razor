@@ -1,0 +1,101 @@
+﻿@page "/bankaccount"
+@using HelloOrleans.DomainModels.Events
+@inject BankAccountService Service;
+
+<h3>My Bank Account</h3>
+
+<input @bind="@_amount" placeholder="Amount"/>
+<button @onclick="@Deposit">
+    Deposit
+</button>
+<button @onclick="@Withdrawal">
+    Withdrawal
+</button>
+<br/>
+<br/>
+
+<p>
+    Current Balance is @_balance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+
+<p>
+    Transaction History &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Transaction Date</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @if (_allHists != null)
+    {
+        @foreach (var item in _allHists)
+        {
+            <tr>
+                @{
+                    switch (item)
+                    {
+                        case DepositEvent e:
+                            <td>@e.Timestamp.ToLocalTime()</td>
+                            <td>@e.Amount</td>
+                            break;
+                        case WithdrawalEvent e:
+                            <td>@e.Timestamp.ToLocalTime()</td>
+                            var eAmount = -1 * e.Amount;
+                            <td>@eAmount</td>
+                            break;
+                    }
+                }
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+
+@code {
+
+    private uint? _amount;
+    private AccountEvent[] _allHists;
+    private decimal? _balance;
+
+    private async Task GetAllHist()
+    {
+        var t = await Service.GetAllHists();
+        _allHists = t.ToArray();
+    }
+
+    private async Task Deposit()
+    {
+        if (_amount is null) return;
+        await Service.Deposit(_amount.GetValueOrDefault());
+        await Task.Delay(TimeSpan.FromMilliseconds(200));
+        await GetBalance();
+        await GetAllHist();
+    }
+
+    private async Task Withdrawal()
+    {
+        if (_amount is null) return;
+        await Service.Withdrawal(_amount.GetValueOrDefault());
+        await Task.Delay(TimeSpan.FromMilliseconds(200));
+        await GetBalance();
+        await GetAllHist();
+    }
+
+    private async Task GetBalance()
+    {
+        _balance = await Service.GetBalance();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetBalance();
+        await GetAllHist();
+        await base.OnInitializedAsync();
+    }
+
+}
