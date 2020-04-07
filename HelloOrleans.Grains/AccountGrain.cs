@@ -72,7 +72,7 @@
                         {
                             AccountId = this.GetPrimaryKeyLong(),
                             ETag = reader.GetInt32(1),
-                            Timestamp = reader.GetFieldValue<Instant>(2).ToDateTimeOffset()
+                            Timestamp = reader.GetFieldValue<ZonedDateTime>(2).ToDateTimeOffset()
                         };
                         result.Add(de);
                         break;
@@ -81,7 +81,7 @@
                         {
                             AccountId = this.GetPrimaryKeyLong(),
                             ETag = reader.GetInt32(1),
-                            Timestamp = reader.GetFieldValue<Instant>(2).ToDateTimeOffset()
+                            Timestamp = reader.GetFieldValue<ZonedDateTime>(2).ToDateTimeOffset()
                         };
                         result.Add(we);
                         break;
@@ -162,7 +162,7 @@
                 , conn);
             cmd.Parameters.AddWithValue("id", NpgsqlDbType.Bigint, e.AccountId);
             cmd.Parameters.AddWithValue("etag", NpgsqlDbType.Integer, e.ETag);
-            cmd.Parameters.Add(new NpgsqlParameter("tm", Instant.FromDateTimeOffset(e.Timestamp)));
+            cmd.Parameters.Add(new NpgsqlParameter("tm", ZonedDateTime.FromDateTimeOffset(e.Timestamp)));
             switch (e)
             {
                 case DepositEvent @event:
@@ -211,7 +211,7 @@
 
             await reader.ReadAsync();
             state.Etag = reader.GetInt32(1);
-            state.Timestamp = reader.GetFieldValue<Instant>(2).ToDateTimeOffset();
+            state.Timestamp = reader.GetFieldValue<ZonedDateTime>(2).ToDateTimeOffset();
             state.Balance = reader.GetDecimal(3);
 
             return state;
@@ -225,7 +225,7 @@
                 , conn);
             cmd.Parameters.AddWithValue("id", NpgsqlDbType.Bigint, state.Id);
             cmd.Parameters.AddWithValue("etag", NpgsqlDbType.Integer, state.Etag);
-            cmd.Parameters.Add(new NpgsqlParameter("tm", Instant.FromDateTimeOffset(state.Timestamp)));
+            cmd.Parameters.Add(new NpgsqlParameter("tm", ZonedDateTime.FromDateTimeOffset(state.Timestamp)));
             cmd.Parameters.AddWithValue("balance", NpgsqlDbType.Money, state.Balance);
             await cmd.ExecuteNonQueryAsync();
             _logger.LogInformation("insert snapshot: end");
@@ -246,7 +246,7 @@
             if (!reader.HasRows) return;
             await reader.ReadAsync();
             state.Etag = reader.GetInt32(2);
-            state.Timestamp = reader.GetFieldValue<Instant>(3).ToDateTimeOffset();
+            state.Timestamp = reader.GetFieldValue<ZonedDateTime>(3).ToDateTimeOffset();
             state.Balance = reader.GetDecimal(1);
         }
 
@@ -257,7 +257,7 @@
                 "update account_snapshots set etag = @etag, \"timestamp\" = @tm, balance = @balance where account_id  = @id"
                 , conn);
             cmd.Parameters.AddWithValue("etag", NpgsqlDbType.Integer, state.Etag);
-            cmd.Parameters.Add(new NpgsqlParameter("tm", Instant.FromDateTimeOffset(state.Timestamp)));
+            cmd.Parameters.Add(new NpgsqlParameter("tm", ZonedDateTime.FromDateTimeOffset(state.Timestamp)));
             cmd.Parameters.AddWithValue("balance", NpgsqlDbType.Money, state.Balance);
             cmd.Parameters.AddWithValue("id", NpgsqlDbType.Bigint, state.Id);
             await cmd.ExecuteNonQueryAsync();
