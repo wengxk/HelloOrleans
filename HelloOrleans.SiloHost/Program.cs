@@ -3,6 +3,7 @@
     using System;
     using System.Net;
     using Grains;
+    using Interfaces;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -19,8 +20,8 @@
                 .AddUserSecrets<Program>()
                 .Build();
             var connectionString = configuration.GetConnectionString("aliyunpgsql");
-            HelloOrleans.Grains.Common.ConnectionString = connectionString;
-            
+            Common.ConnectionString = connectionString;
+
             var builder = new SiloHostBuilder()
                 .ConfigureApplicationParts(builder =>
                     builder.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
@@ -37,16 +38,29 @@
                     options.ConnectionString = connectionString;
                     options.UseJsonFormat = true;
                 })
-                .AddLogStorageBasedLogConsistencyProvider("LogStorage")
+                .AddLogStorageBasedLogConsistencyProvider()
                 .AddCustomStorageBasedLogConsistencyProviderAsDefault("CustomLogStorage")
                 .ConfigureLogging(builder =>
                     builder
                         .AddConsole())
+                .AddSimpleMessageStreamProvider("SMSProvider")
                 .UseDashboard(options =>
                 {
                     options.Port = 8000;
                     options.HideTrace = true;
-                });
+                })
+                // Pre-loading some grains
+                .AddStartupTask(
+                    async (services, cancellation) =>
+                    {
+                        // Use the service provider to get the grain factory.
+                        var grainFactory = services.GetRequiredService<IGrainFactory>();
+
+                        // Get a reference to a grain and call a method on it.
+                        var grain = grainFactory.GetGrain<ITimerSample>(0);
+                        await grain.Initialize();
+                    })
+                ;
 
             using var host = builder.Build();
             host.StartAsync().Wait();

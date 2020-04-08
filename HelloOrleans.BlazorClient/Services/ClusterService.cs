@@ -8,6 +8,7 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Orleans;
+    using Orleans.Hosting;
 
     /// <summary>
     ///     Defines the <see cref="ClusterService" />
@@ -30,6 +31,7 @@
             Client = new ClientBuilder()
                 .ConfigureApplicationParts(manager =>
                     manager.AddApplicationPart(typeof(IShoppingCart).Assembly).WithReferences())
+                .AddSimpleMessageStreamProvider("SMSProvider")
                 .UseLocalhostClustering()
                 .Build();
         }

@@ -98,7 +98,8 @@
         }
 
         // The first method, ReadStateFromStorage, is expected to return both the version, and the state read.
-        // If there is nothing stored yet, it should return zero for the version and a state that matches corresponds to the default constructor for StateType.
+        // If there is nothing stored yet, it should return zero for the version
+        // and a state that matches corresponds to the default constructor for StateType.
         public async Task<KeyValuePair<int, Account>> ReadStateFromStorage()
         {
             _logger.LogInformation("ReadStateFromStorage: start");
@@ -124,7 +125,8 @@
             return new KeyValuePair<int, Account>(state.Etag, state);
         }
 
-        // ApplyUpdatesToStorage must return false if the expected version does not match the actual version (this is analogous to an e-tag check).
+        // ApplyUpdatesToStorage must return false
+        // if the expected version does not match the actual version (this is analogous to an e-tag check).
         public async Task<bool> ApplyUpdatesToStorage(IReadOnlyList<AccountEvent> updates, int expectedVersion)
         {
             _logger.LogInformation($"ApplyUpdatesToStorage: start with expected version {expectedVersion}");

@@ -20,6 +20,7 @@ ProjectSection(SolutionItems) = preProject
 	SulotionItems\03_PostgreSQL-Persistence.sql = SulotionItems\03_PostgreSQL-Persistence.sql
 	SulotionItems\04_PostgreSQL-Reminders.sql = SulotionItems\04_PostgreSQL-Reminders.sql
 	SulotionItems\05_account_ddl.sql = SulotionItems\05_account_ddl.sql
+	README.md = README.md
 EndProjectSection
 EndProject
 Global
