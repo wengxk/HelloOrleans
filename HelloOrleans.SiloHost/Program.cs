@@ -2,6 +2,8 @@
 {
     using System;
     using System.Net;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Grains;
     using Interfaces;
     using Microsoft.Extensions.Configuration;
@@ -49,17 +51,12 @@
                     options.Port = 8000;
                     options.HideTrace = true;
                 })
-                // Pre-loading some grains
-                .AddStartupTask(
-                    async (services, cancellation) =>
-                    {
-                        // Use the service provider to get the grain factory.
-                        var grainFactory = services.GetRequiredService<IGrainFactory>();
-
-                        // Get a reference to a grain and call a method on it.
-                        var grain = grainFactory.GetGrain<ITimerSample>(0);
-                        await grain.Initialize();
-                    })
+                .AddStartupTask(ConfigStartupTasks)
+                .UseAdoNetReminderService(options =>
+                {
+                    options.Invariant = "Npgsql";
+                    options.ConnectionString = connectionString;
+                })
                 ;
 
             using var host = builder.Build();
@@ -68,5 +65,20 @@
             Console.ReadLine();
             host.StopAsync().Wait();
         }
+
+
+        // Pre-loading some grains
+        private static async Task ConfigStartupTasks(IServiceProvider serviceProvider, CancellationToken cancellationToken)
+        {
+            // Use the service provider to get the grain factory.
+            var grainFactory = serviceProvider.GetRequiredService<IGrainFactory>();
+                        
+            // Get a reference to a grain and call a method on it.
+            var timerSampleGrain = grainFactory.GetGrain<ITimerSample>(0);
+            var reminderSampleGrain = grainFactory.GetGrain<IReminderSample>(0);
+
+            await Task.WhenAll(timerSampleGrain.Initialize(), reminderSampleGrain.Initialize());
+        }
+        
     }
 }
