@@ -46,12 +46,19 @@
                     builder
                         .AddConsole())
                 .AddSimpleMessageStreamProvider("SMSProvider")
+                .AddMemoryGrainStorage("PubSubStore")
+                // .AddAdoNetGrainStorage("PubSubStore", options =>
+                // {
+                //     options.Invariant = "Npgsql";
+                //     options.ConnectionString = connectionString;
+                //     options.UseJsonFormat = true;
+                // })
                 .UseDashboard(options =>
                 {
                     options.Port = 8000;
                     options.HideTrace = true;
                 })
-                .AddStartupTask(ConfigStartupTasks)
+                .AddStartupTask(ConfigureStartupTasks)
                 .UseAdoNetReminderService(options =>
                 {
                     options.Invariant = "Npgsql";
@@ -68,7 +75,7 @@
 
 
         // Pre-loading some grains
-        private static async Task ConfigStartupTasks(IServiceProvider serviceProvider, CancellationToken cancellationToken)
+        private static async Task ConfigureStartupTasks(IServiceProvider serviceProvider, CancellationToken cancellationToken)
         {
             // Use the service provider to get the grain factory.
             var grainFactory = serviceProvider.GetRequiredService<IGrainFactory>();
@@ -76,8 +83,15 @@
             // Get a reference to a grain and call a method on it.
             var timerSampleGrain = grainFactory.GetGrain<ITimerSample>(0);
             var reminderSampleGrain = grainFactory.GetGrain<IReminderSample>(0);
+            
+            // stream sample
+            var guid = new System.Guid();
+            var simpleStreamProducerGrain = grainFactory.GetGrain<ISimpleStreamProducerSample>(guid);
+            var guid2 = new System.Guid();
+            var simpleStreamConsumerGrain = grainFactory.GetGrain<ISimpleStreamConsumerSample>(guid2);
 
-            await Task.WhenAll(timerSampleGrain.Initialize(), reminderSampleGrain.Initialize());
+            await Task.WhenAll(timerSampleGrain.Initialize(), reminderSampleGrain.Initialize(),
+                simpleStreamProducerGrain.Initialize(), simpleStreamConsumerGrain.Initialize());
         }
         
     }
