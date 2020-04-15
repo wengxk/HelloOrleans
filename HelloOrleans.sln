@@ -3,16 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.Interfaces", "HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj", "{83AB4CF6-EBD6-4674-9747-0D02F8659546}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.Grains", "HelloOrleans.Grains\HelloOrleans.Grains.csproj", "{9D2D3E48-51A4-4C7D-AF83-4E1A2C89F284}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.SiloHost", "HelloOrleans.SiloHost\HelloOrleans.SiloHost.csproj", "{812EE929-8FAE-4E05-811F-D5DAC59F84ED}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.BlazorClient", "HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{3D84C0FA-BF00-4076-A75F-572FF5858602}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.DomainModels", "HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj", "{E24614EB-659A-4A39-8577-AB26132A0776}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E019DF8C-F362-4EFD-BEE9-2B077F9A643D}"
 ProjectSection(SolutionItems) = preProject
 	SulotionItems\01_PostgreSQL-Main.sql = SulotionItems\01_PostgreSQL-Main.sql
@@ -23,32 +13,42 @@ ProjectSection(SolutionItems) = preProject
 	README.md = README.md
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.DomainModels", "src\HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj", "{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Interfaces", "src\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj", "{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Grains", "src\HelloOrleans.Grains\HelloOrleans.Grains.csproj", "{49EB3D36-153D-437E-BADB-198A9E9F87A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.SiloHost", "src\HelloOrleans.SiloHost\HelloOrleans.SiloHost.csproj", "{0E3FF7FF-5C84-4B72-B349-39024108DCC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.BlazorClient", "src\HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{96529A54-0F11-45F6-A692-844C49921E32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{83AB4CF6-EBD6-4674-9747-0D02F8659546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83AB4CF6-EBD6-4674-9747-0D02F8659546}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83AB4CF6-EBD6-4674-9747-0D02F8659546}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83AB4CF6-EBD6-4674-9747-0D02F8659546}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D2D3E48-51A4-4C7D-AF83-4E1A2C89F284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D2D3E48-51A4-4C7D-AF83-4E1A2C89F284}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D2D3E48-51A4-4C7D-AF83-4E1A2C89F284}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D2D3E48-51A4-4C7D-AF83-4E1A2C89F284}.Release|Any CPU.Build.0 = Release|Any CPU
-		{812EE929-8FAE-4E05-811F-D5DAC59F84ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{812EE929-8FAE-4E05-811F-D5DAC59F84ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{812EE929-8FAE-4E05-811F-D5DAC59F84ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{812EE929-8FAE-4E05-811F-D5DAC59F84ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D84C0FA-BF00-4076-A75F-572FF5858602}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E24614EB-659A-4A39-8577-AB26132A0776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E24614EB-659A-4A39-8577-AB26132A0776}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E24614EB-659A-4A39-8577-AB26132A0776}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E24614EB-659A-4A39-8577-AB26132A0776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49EB3D36-153D-437E-BADB-198A9E9F87A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49EB3D36-153D-437E-BADB-198A9E9F87A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49EB3D36-153D-437E-BADB-198A9E9F87A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49EB3D36-153D-437E-BADB-198A9E9F87A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96529A54-0F11-45F6-A692-844C49921E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96529A54-0F11-45F6-A692-844C49921E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96529A54-0F11-45F6-A692-844C49921E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96529A54-0F11-45F6-A692-844C49921E32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
