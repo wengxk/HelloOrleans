@@ -19,15 +19,29 @@
         {
             IConfiguration configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+#if RELEASE
+                .AddJsonFile("user.secrets.json")
+#endif
+                
+#if DEBUG
                 .AddUserSecrets<Program>()
+#endif  
                 .Build();
+#if DEBUG
             var connectionString = configuration.GetConnectionString("aliyunpgsql");
+#endif
+            
+#if RELEASE
+            var connectionString = configuration.GetConnectionString("aliyunpgsql");
+#endif
+            
             Common.ConnectionString = connectionString;
 
             var builder = new SiloHostBuilder()
                 .ConfigureApplicationParts(builder =>
                     builder.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
                 .UseLocalhostClustering()
+                
                 .Configure<EndpointOptions>(options =>
                 {
                     options.AdvertisedIPAddress = IPAddress.Loopback;
@@ -53,12 +67,17 @@
                 //     options.ConnectionString = connectionString;
                 //     options.UseJsonFormat = true;
                 // })
+#if DEBUG
                 .UseDashboard(options =>
                 {
                     options.Port = 8000;
                     options.HideTrace = true;
                 })
+#endif
+
+#if DEBUG
                 .AddStartupTask(ConfigureStartupTasks)
+#endif
                 .UseAdoNetReminderService(options =>
                 {
                     options.Invariant = "Npgsql";

@@ -5,11 +5,6 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E019DF8C-F362-4EFD-BEE9-2B077F9A643D}"
 ProjectSection(SolutionItems) = preProject
-	SulotionItems\01_PostgreSQL-Main.sql = SulotionItems\01_PostgreSQL-Main.sql
-	SulotionItems\02_PostgreSQL-Clustering.sql = SulotionItems\02_PostgreSQL-Clustering.sql
-	SulotionItems\03_PostgreSQL-Persistence.sql = SulotionItems\03_PostgreSQL-Persistence.sql
-	SulotionItems\04_PostgreSQL-Reminders.sql = SulotionItems\04_PostgreSQL-Reminders.sql
-	SulotionItems\05_account_ddl.sql = SulotionItems\05_account_ddl.sql
 	README.md = README.md
 EndProjectSection
 EndProject
@@ -22,6 +17,21 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.SiloHost", "src\HelloOrleans.SiloHost\HelloOrleans.SiloHost.csproj", "{0E3FF7FF-5C84-4B72-B349-39024108DCC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.BlazorClient", "src\HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{96529A54-0F11-45F6-A692-844C49921E32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{B68AAF41-2F94-4642-AB91-C6A6327BD304}"
+ProjectSection(SolutionItems) = preProject
+	SulotionItems\01_PostgreSQL-Main.sql = SulotionItems\01_PostgreSQL-Main.sql
+	SulotionItems\02_PostgreSQL-Clustering.sql = SulotionItems\02_PostgreSQL-Clustering.sql
+	SulotionItems\03_PostgreSQL-Persistence.sql = SulotionItems\03_PostgreSQL-Persistence.sql
+	SulotionItems\04_PostgreSQL-Reminders.sql = SulotionItems\04_PostgreSQL-Reminders.sql
+	SulotionItems\05_account_ddl.sql = SulotionItems\05_account_ddl.sql
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{D1F4E98B-F499-42D4-9F35-5D7E8989C3A6}"
+ProjectSection(SolutionItems) = preProject
+	SulotionItems\deploy.ps1 = SulotionItems\deploy.ps1
+	SulotionItems\deploy-client.ps1 = SulotionItems\deploy-client.ps1
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,5 +65,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9A75B81-0988-4A91-BC4A-E4F77EA05387}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B68AAF41-2F94-4642-AB91-C6A6327BD304} = {E019DF8C-F362-4EFD-BEE9-2B077F9A643D}
+		{D1F4E98B-F499-42D4-9F35-5D7E8989C3A6} = {E019DF8C-F362-4EFD-BEE9-2B077F9A643D}
 	EndGlobalSection
 EndGlobal
