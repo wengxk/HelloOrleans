@@ -1,12 +1,11 @@
 ﻿@page "/invtrans"
-@using HelloOrleans.DomainModels.Events
-@inject InventoryTransactionService Service;
+@inject HttpClient http;
 
 <h3>Inventory Transaction</h3>
 
 
-<input @bind="@_goodsId" placeholder="Id"/>
-<input @bind="@_transAmount" placeholder="Amount"/>
+<input @bind="@_goodsId" placeholder="Id" />
+<input @bind="@_transAmount" placeholder="Amount" />
 <button @onclick="@StockIn">
     StockIn
 </button>
@@ -16,8 +15,8 @@
 <button @onclick="@ShowDetails">
     Show Details
 </button>
-<br/>
-<br/>
+<br />
+<br />
 
 <p>
     Current Inventory is @_currentInventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -28,31 +27,31 @@
 </p>
 <table class="table">
     <thead>
-    <tr>
-        <th>Goods Id</th>
-        <th>Transaction Type</th>
-        <th>Amount</th>
-    </tr>
+        <tr>
+            <th>Goods Id</th>
+            <th>Transaction Type</th>
+            <th>Amount</th>
+        </tr>
     </thead>
     <tbody>
 
-    @if (_allTransHist != null)
-    {
-        @foreach (var item in _allTransHist)
+        @if (_allTransHist != null)
         {
-            <tr>
-                <td>@item.GoodsId</td>
-                <td>@item.TransactionType</td>
-                <td>@item.Amount</td>
-            </tr>
+            @foreach (var item in _allTransHist)
+            {
+                <tr>
+                    <td>@item.GoodsId</td>
+                    <td>@item.TransactionType</td>
+                    <td>@item.Amount</td>
+                </tr>
+            }
         }
-    }
     </tbody>
 </table>
 
 
 @code {
-
+    private readonly string _host = $"{Data.Host}/InventoryTransaction";
     private long? _goodsId;
     private uint? _transAmount;
     private uint? _currentInventory;
@@ -63,7 +62,7 @@
     {
         if (_goodsId == null)
             return;
-        var t = await Service.All(_goodsId.GetValueOrDefault());
+        var t = await http.GetJsonAsync<GoodsInventoryTransactionEvent[]>($"{_host}/All?id={_goodsId.GetValueOrDefault()}");
         _allTransHist = t.ToArray();
     }
 
@@ -89,11 +88,12 @@
             return;
         if (transType != "in" && transType != "out")
             return;
-        await Service.Trans(new GoodsInventoryTransactionEvent
+
+        await http.PostJsonAsync($"{_host}/Trans", new GoodsInventoryTransactionEvent
         {
             GoodsId = _goodsId.GetValueOrDefault(),
             TransactionType = transType,
-            Amount = (uint) _transAmount.GetValueOrDefault()
+            Amount = _transAmount.GetValueOrDefault()
         });
     }
 
@@ -101,7 +101,7 @@
     {
         if (_goodsId == null)
             return;
-        _currentInventory = await Service.GetCurrentInventory(_goodsId.GetValueOrDefault());
+        _currentInventory = await http.GetJsonAsync<uint>($"{_host}/GetCurrentInventory?id={_goodsId.GetValueOrDefault()}");
     }
 
     private async Task ShowDetails()

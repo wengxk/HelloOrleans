@@ -1,4 +1,4 @@
-namespace HelloOrleans.BlazorClient.Data
+namespace HelloOrleans.Api
 {
     using System;
 

@@ -4,34 +4,36 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E019DF8C-F362-4EFD-BEE9-2B077F9A643D}"
-ProjectSection(SolutionItems) = preProject
-	README.md = README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.DomainModels", "src\HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj", "{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.DomainModels", "src\HelloOrleans.DomainModels\HelloOrleans.DomainModels.csproj", "{E60CB6C1-4B7F-48F2-902B-BD9C2FECA30D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Interfaces", "src\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj", "{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.Interfaces", "src\HelloOrleans.Interfaces\HelloOrleans.Interfaces.csproj", "{22B2AB87-00EA-4CD0-82AC-3A62A5B5C68E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.Grains", "src\HelloOrleans.Grains\HelloOrleans.Grains.csproj", "{49EB3D36-153D-437E-BADB-198A9E9F87A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.Grains", "src\HelloOrleans.Grains\HelloOrleans.Grains.csproj", "{49EB3D36-153D-437E-BADB-198A9E9F87A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.SiloHost", "src\HelloOrleans.SiloHost\HelloOrleans.SiloHost.csproj", "{0E3FF7FF-5C84-4B72-B349-39024108DCC3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloOrleans.BlazorClient", "src\HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{96529A54-0F11-45F6-A692-844C49921E32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.SiloHost", "src\HelloOrleans.SiloHost\HelloOrleans.SiloHost.csproj", "{0E3FF7FF-5C84-4B72-B349-39024108DCC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{B68AAF41-2F94-4642-AB91-C6A6327BD304}"
-ProjectSection(SolutionItems) = preProject
-	SulotionItems\01_PostgreSQL-Main.sql = SulotionItems\01_PostgreSQL-Main.sql
-	SulotionItems\02_PostgreSQL-Clustering.sql = SulotionItems\02_PostgreSQL-Clustering.sql
-	SulotionItems\03_PostgreSQL-Persistence.sql = SulotionItems\03_PostgreSQL-Persistence.sql
-	SulotionItems\04_PostgreSQL-Reminders.sql = SulotionItems\04_PostgreSQL-Reminders.sql
-	SulotionItems\05_account_ddl.sql = SulotionItems\05_account_ddl.sql
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		SulotionItems\01_PostgreSQL-Main.sql = SulotionItems\01_PostgreSQL-Main.sql
+		SulotionItems\02_PostgreSQL-Clustering.sql = SulotionItems\02_PostgreSQL-Clustering.sql
+		SulotionItems\03_PostgreSQL-Persistence.sql = SulotionItems\03_PostgreSQL-Persistence.sql
+		SulotionItems\04_PostgreSQL-Reminders.sql = SulotionItems\04_PostgreSQL-Reminders.sql
+		SulotionItems\05_account_ddl.sql = SulotionItems\05_account_ddl.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{D1F4E98B-F499-42D4-9F35-5D7E8989C3A6}"
-ProjectSection(SolutionItems) = preProject
-	SulotionItems\deploy.ps1 = SulotionItems\deploy.ps1
-	SulotionItems\deploy-client.ps1 = SulotionItems\deploy-client.ps1
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		SulotionItems\deploy_client.ps1 = SulotionItems\deploy_client.ps1
+		SulotionItems\deploy_host.ps1 = SulotionItems\deploy_host.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.Api", "src\HelloOrleans.Api\HelloOrleans.Api.csproj", "{701C79B5-4E8D-4D9E-90C3-AA61D10C137E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloOrleans.BlazorClient", "src\HelloOrleans.BlazorClient\HelloOrleans.BlazorClient.csproj", "{4E5DEAF2-FEF1-4E81-B704-130DD20D342B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,19 +57,23 @@ Global
 		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E3FF7FF-5C84-4B72-B349-39024108DCC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96529A54-0F11-45F6-A692-844C49921E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96529A54-0F11-45F6-A692-844C49921E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96529A54-0F11-45F6-A692-844C49921E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96529A54-0F11-45F6-A692-844C49921E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{701C79B5-4E8D-4D9E-90C3-AA61D10C137E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{701C79B5-4E8D-4D9E-90C3-AA61D10C137E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{701C79B5-4E8D-4D9E-90C3-AA61D10C137E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{701C79B5-4E8D-4D9E-90C3-AA61D10C137E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E5DEAF2-FEF1-4E81-B704-130DD20D342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E5DEAF2-FEF1-4E81-B704-130DD20D342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E5DEAF2-FEF1-4E81-B704-130DD20D342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E5DEAF2-FEF1-4E81-B704-130DD20D342B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C9A75B81-0988-4A91-BC4A-E4F77EA05387}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B68AAF41-2F94-4642-AB91-C6A6327BD304} = {E019DF8C-F362-4EFD-BEE9-2B077F9A643D}
 		{D1F4E98B-F499-42D4-9F35-5D7E8989C3A6} = {E019DF8C-F362-4EFD-BEE9-2B077F9A643D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9A75B81-0988-4A91-BC4A-E4F77EA05387}
 	EndGlobalSection
 EndGlobal

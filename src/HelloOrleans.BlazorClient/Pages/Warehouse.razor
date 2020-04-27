@@ -1,41 +1,40 @@
 ﻿@page "/warehouse"
-@using HelloOrleans.DomainModels
-@inject WarehouseService Service
+@inject HttpClient http;
 
 <h3>Warehouse</h3>
 
 
-<input @bind="@_goodsId" placeholder="Id"/>
-<input @bind="@_goodsName" placeholder="Goods Name"/>
+<input @bind="@_goodsId" placeholder="Id" />
+<input @bind="@_goodsName" placeholder="Goods Name" />
 <button @onclick="@Add">
     Add New Basic Goods
 </button>
 
 <table class="table">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Goods Name</th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Goods Name</th>
+        </tr>
     </thead>
     <tbody>
 
-    @if (_allBasicGoods != null)
-    {
-        @foreach (var item in _allBasicGoods)
+        @if (_allBasicGoods != null)
         {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.GoodsName</td>
-            </tr>
+            @foreach (var item in _allBasicGoods)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.GoodsName</td>
+                </tr>
+            }
         }
-    }
     </tbody>
 </table>
 
 
 @code {
-
+    private readonly string _host = $"{Data.Host}/Warehouse";
     private long? _goodsId;
     private string _goodsName;
 
@@ -48,7 +47,7 @@
 
     private async Task GetAllGoods()
     {
-        var t = await Service.All();
+        var t = await http.GetJsonAsync<BasicGoods[]>($"{_host}/All");
         _allBasicGoods = t.ToArray();
     }
 
@@ -59,7 +58,8 @@
         if (_allBasicGoods.Select(x => x.Id).ToList().Contains(_goodsId.GetValueOrDefault())
             || _allBasicGoods.Select(x => x.GoodsName).ToList().Contains(_goodsName))
             return;
-        await Service.Add(new BasicGoods
+
+        await http.PostJsonAsync($"{_host}/Add", new BasicGoods
         {
             Id = _goodsId.GetValueOrDefault(),
             GoodsName = _goodsName

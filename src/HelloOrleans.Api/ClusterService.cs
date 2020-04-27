@@ -1,4 +1,4 @@
-﻿namespace HelloOrleans.BlazorClient.Services
+﻿namespace HelloOrleans.Api
 {
     using System;
     using System.Threading;
@@ -85,7 +85,7 @@
         {
             services.AddSingleton<ClusterService>();
             services.AddSingleton<IHostedService>(_ => _.GetService<ClusterService>());
-            services.AddTransient(_ => _.GetService<ClusterService>().Client);
+            services.AddSingleton(_ => _.GetService<ClusterService>().Client);
             return services;
         }
     }

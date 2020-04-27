@@ -5,6 +5,8 @@
     [Serializable]
     public class WithdrawalEvent : AccountEvent
     {
+        public WithdrawalEvent() { }
+
         public WithdrawalEvent(decimal amount)
         {
             Amount = amount;

@@ -41,7 +41,6 @@
                 .ConfigureApplicationParts(builder =>
                     builder.AddApplicationPart(typeof(ShoppingCartGarin).Assembly).WithReferences())
                 .UseLocalhostClustering()
-                
                 .Configure<EndpointOptions>(options =>
                 {
                     options.AdvertisedIPAddress = IPAddress.Loopback;
@@ -104,13 +103,14 @@
             var reminderSampleGrain = grainFactory.GetGrain<IReminderSample>(0);
             
             // stream sample
-            var guid = new System.Guid();
-            var simpleStreamProducerGrain = grainFactory.GetGrain<ISimpleStreamProducerSample>(guid);
-            var guid2 = new System.Guid();
-            var simpleStreamConsumerGrain = grainFactory.GetGrain<ISimpleStreamConsumerSample>(guid2);
+            // var guid = new System.Guid();
+            // var simpleStreamProducerGrain = grainFactory.GetGrain<ISimpleStreamProducerSample>(guid);
+            // var guid2 = new System.Guid();
+            // var simpleStreamConsumerGrain = grainFactory.GetGrain<ISimpleStreamConsumerSample>(guid2);
 
-            await Task.WhenAll(timerSampleGrain.Initialize(), reminderSampleGrain.Initialize(),
-                simpleStreamProducerGrain.Initialize(), simpleStreamConsumerGrain.Initialize());
+            await Task.WhenAll(timerSampleGrain.Initialize(), reminderSampleGrain.Initialize()
+                // ,simpleStreamProducerGrain.Initialize(), simpleStreamConsumerGrain.Initialize()
+                );
         }
         
     }

@@ -1,37 +1,37 @@
-﻿@page "/shippingcart"
-@inject ShoppingCartService Service
+﻿@page "/shoppingcart"
+@inject HttpClient http;
 
 
 <h3>Shopping Cart</h3>
 
-<input @bind="@_newGoods"/>
+<input @bind="@_newGoods" />
 <button @onclick="@Add">Add to My Cart</button>
 <button @onclick="@Clear">Clear All Goods</button>
 
 <table class="table">
     <thead>
-    <tr>
-        <th>Goods</th>
-    </tr>
+        <tr>
+            <th>Goods</th>
+        </tr>
     </thead>
     <tbody>
 
-    @if (_allGoods != null)
-    {
-        @foreach (var item in _allGoods)
+        @if (_allGoods != null)
         {
-            <tr>
-                <td>@item</td>
-            </tr>
+            @foreach (var item in _allGoods)
+            {
+                <tr>
+                    <td>@item</td>
+                </tr>
+            }
         }
-    }
     </tbody>
 
 </table>
 
 
 @code {
-
+    private readonly string _host = $"{Data.Host}/ShoppingCart";
     private string _newGoods;
 
     private string[] _allGoods;
@@ -43,7 +43,7 @@
 
     private async Task GetAllGoods()
     {
-        var t = await Service.All();
+        var t = await http.GetJsonAsync<string[]>($"{_host}/All");
         _allGoods = t.ToArray();
     }
 
@@ -51,7 +51,7 @@
     {
         if (!string.IsNullOrWhiteSpace(_newGoods))
         {
-            await Service.Add(_newGoods);
+            await http.PostJsonAsync($"{_host}/Add", _newGoods);
         }
 
         await GetAllGoods();
@@ -60,7 +60,7 @@
 
     private async Task Clear()
     {
-        await Service.Clear();
+        await http.PostAsync($"{_host}/clear", null);
         _allGoods = null;
     }
 

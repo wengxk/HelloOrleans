@@ -5,6 +5,8 @@
     [Serializable]
     public class DepositEvent : AccountEvent
     {
+        public DepositEvent() { }
+
         public DepositEvent(decimal amount)
         {
             Amount = amount;
